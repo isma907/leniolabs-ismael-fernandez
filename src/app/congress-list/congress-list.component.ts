@@ -17,7 +17,7 @@ export class CongressListComponent implements OnInit {
   ) {
   }
 
-  displayedColumns: string[] = ['first_name', 'party', 'gender', 'actions'];
+  displayedColumns: string[] = ['name', 'party', 'gender', 'actions'];
   dataSource = new MatTableDataSource<ICongressMember>([]);
 
   ngOnInit() {

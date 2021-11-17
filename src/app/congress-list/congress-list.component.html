@@ -5,9 +5,9 @@
 
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Position Column -->
-  <ng-container matColumnDef="first_name">
+  <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.first_name}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.first_name}} {{element.last_name}} </mat-cell>
   </ng-container>
 
   <!-- Name Column -->
