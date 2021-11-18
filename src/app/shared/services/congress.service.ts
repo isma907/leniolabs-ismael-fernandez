@@ -27,4 +27,11 @@ export class CongressService {
     }));
   }
 
+  getCongressMember(id: string): Observable<any> {
+    return this.http.get(`https://api.propublica.org/congress/v1/members/${id}.json`,
+      {
+        headers: this.proPublicaHeaders
+      })
+  }
+
 }
