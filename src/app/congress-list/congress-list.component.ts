@@ -51,16 +51,21 @@ export class CongressListComponent implements OnInit {
   congressList: ICongressMember[] = [];
   dataSource = new MatTableDataSource<ICongressMember>([]);
   singleFilter: string;
+  advancedFilter: boolean = false;
+  loading: boolean = false;
 
   ngOnInit() {
     this.fetchMembers();
   }
 
   fetchMembers() {
+    this.loading = true;
     this.congressService.getCongressList()
       .pipe(
         take(1),
-        finalize(() => {})
+        finalize(() => {
+          this.loading = false
+        })
       ).subscribe(
       (members: ICongressMember[]) => {
         this.congressList = members;
@@ -73,24 +78,44 @@ export class CongressListComponent implements OnInit {
 
 
   applySingleInputSearch(event: Event) {
-    this.resetAdvancedFilter();
+    this.resetAdvancedFilterData();
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.data = this.congressList;
+    this.resetTableData()
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  resetSingleFilterData() {
+    this.singleFilter = ''
+    this.dataSource.filter = '';
   }
 
   advancedFilterChange(colName: string, event: Event) {
     let filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase()
     this.filterValues[colName] = filterValue ? filterValue.toLowerCase() : ''
     const filterData = JSON.stringify(this.filterValues);
-    this.dataSource.filter = '';
+    this.resetSingleFilterData()
     this.dataSource.data = this.advancedFilterPipe.transform(this.congressList.slice(), filterData);
   }
 
   resetAdvancedFilter() {
+    this.resetAdvancedFilterData()
+    this.resetTableData()
+  }
+
+  resetAdvancedFilterData() {
     this.advancedFilterFields.forEach((value, key) => {
       value.filterVal = '';
     })
-    this.dataSource.filter = ""
+    this.dataSource.filter = ''
+  }
+
+  toggleAdvancedFilter() {
+    this.resetTableData()
+    this.resetSingleFilterData()
+    this.resetAdvancedFilterData();
+  }
+
+  resetTableData() {
+    this.dataSource.data = this.congressList
   }
 }

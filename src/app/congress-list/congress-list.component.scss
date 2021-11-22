@@ -1,0 +1,26 @@
+@import '~src/scss/mixins';
+
+.congressListComponent {
+  &_filter {
+    &-container {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &_advancedFilter {
+    display: flex;
+    align-items: center;
+
+    &-input, &-button {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  &-loader {
+    @include loader();
+  }
+}
+

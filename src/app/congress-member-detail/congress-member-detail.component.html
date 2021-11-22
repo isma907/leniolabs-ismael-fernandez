@@ -1,4 +1,30 @@
-<div>
+<div class="congressMemberDetailComponent">
+  <div class="congressMemberDetailComponent-loader" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
 
-  {{memberDetail | json}}
+  <mat-card *ngIf="!loading">
+    <mat-card-title>
+      {{memberDetail.first_name}} {{memberDetail.last_name}}
+
+      <span [ngSwitch]="memberDetail.gender">
+         <mat-icon *ngSwitchCase="'F'">female</mat-icon>
+         <mat-icon *ngSwitchCase="'M'">male</mat-icon>
+      </span>
+    </mat-card-title>
+    <mat-card-subtitle>{{memberDetail.date_of_birth |date:'d/M/yyyy'}}</mat-card-subtitle>
+    <mat-card-content>
+
+
+      <div class="congressMemberDetailComponent_roles"></div>
+      <h1>Roles</h1>
+      <mat-divider></mat-divider>
+      <div *ngFor="let role of memberDetail.roles" class="congressMemberDetailComponent_roles-item">
+        <b>TITLE: </b> {{role.title}} <b> CONGRESS: </b>{{role.congress}}
+        <b>SINCE: </b> {{role.start_date | date:'d/M/yyyy'}} <b>TO: </b> {{role.end_date | date:'d/M/yyyy'}}
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
 </div>
