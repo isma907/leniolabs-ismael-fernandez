@@ -13,7 +13,7 @@ export class XhrInterceptor implements HttpInterceptor {
   constructor() {
   }
 
-  private handleAuthError(err: HttpErrorResponse): Observable<any> {
+  private handleErrorInterceptor(err: HttpErrorResponse): Observable<any> {
     if (err.status === 401 || err.status === 403) {
       return of(err.message);
     }
@@ -25,6 +25,6 @@ export class XhrInterceptor implements HttpInterceptor {
     const authReq = request.clone({
       headers: request.headers.set('X-API-Key', 'KFxchZGvU4ldps69WEcscHRu9dnb2ueH57pIM3Oa')
     });
-    return next.handle(authReq).pipe(catchError(x => this.handleAuthError(x)))
+    return next.handle(authReq).pipe(catchError(x => this.handleErrorInterceptor(x)))
   }
 }

@@ -1,6 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CongressListComponent } from './congress-list.component';
+import {CongressListComponent} from './congress-list.component';
+import {CongressService} from "../shared/services/congress.service";
+import {HttpClientModule} from "@angular/common/http";
+import {AdvancedFilterPipe} from "../shared/pipes/advanced-filter.pipe";
 
 describe('CongressListComponent', () => {
   let component: CongressListComponent;
@@ -8,9 +11,11 @@ describe('CongressListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CongressListComponent ]
+      imports: [HttpClientModule],
+      declarations: [CongressListComponent],
+      providers: [CongressService, AdvancedFilterPipe]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
