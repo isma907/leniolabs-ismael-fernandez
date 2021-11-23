@@ -1,5 +1,7 @@
 # LeniolabsIsmaelFernandez
 
+![alt text](https://repository-images.githubusercontent.com/429124576/4609a04e-99da-4165-82a5-99ad8e2de196)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.2.
 
 ## Development server
