@@ -2,8 +2,6 @@
 
 .congressMemberDetailComponent {
   $detailUISpacer: 10px;
-  padding: $detailUISpacer * 3;
-
   &_roles {
     &-item {
       padding: $detailUISpacer;

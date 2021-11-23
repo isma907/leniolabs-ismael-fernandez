@@ -77,16 +77,20 @@ export class CongressListComponent implements OnInit {
   }
 
 
+  setFilterValue(value: string) {
+    this.dataSource.filter = value
+  }
+
   applySingleInputSearch(event: Event) {
     this.resetAdvancedFilterData();
     const filterValue = (event.target as HTMLInputElement).value;
     this.resetTableData()
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.setFilterValue(filterValue.trim().toLowerCase());
   }
 
   resetSingleFilterData() {
     this.singleFilter = ''
-    this.dataSource.filter = '';
+    this.setFilterValue('');
   }
 
   advancedFilterChange(colName: string, event: Event) {
@@ -106,7 +110,7 @@ export class CongressListComponent implements OnInit {
     this.advancedFilterFields.forEach((value, key) => {
       value.filterVal = '';
     })
-    this.dataSource.filter = ''
+    this.setFilterValue('');
   }
 
   toggleAdvancedFilter() {

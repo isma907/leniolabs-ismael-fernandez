@@ -6,17 +6,17 @@
   <div class="congressListComponent_filter-container">
     <mat-form-field appearance="standard" *ngIf="!advancedFilter">
       <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applySingleInputSearch($event)" placeholder="Filter by name, gender, party"
+      <input matInput (keyup)="applySingleInputSearch($event)" name="single_filter" placeholder="Filter by name, gender, party" class="single_filter_input"
              [(ngModel)]="singleFilter">
     </mat-form-field>
 
-    <mat-slide-toggle (change)="toggleAdvancedFilter()" [(ngModel)]="advancedFilter">Advanced Filter</mat-slide-toggle>
+    <mat-slide-toggle (change)="toggleAdvancedFilter()" [(ngModel)]="advancedFilter" class="advanced_filter_switch">Advanced Filter</mat-slide-toggle>
 
     <div *ngIf="advancedFilter" class="congressListComponent_advancedFilter">
       <mat-form-field *ngFor="let filterItem of advancedFilterFields" appearance="standard"
                       class="congressListComponent_advancedFilter-input">
         <mat-label>{{filterItem.label}}</mat-label>
-        <input matInput [(ngModel)]="filterItem.filterVal"
+        <input matInput [(ngModel)]="filterItem.filterVal" name="custom_filter_{{filterItem.colName}}"
                (change)="advancedFilterChange(filterItem.colName,$event)">
       </mat-form-field>
       <button mat-flat-button color="warn" (click)="resetAdvancedFilter()"
@@ -29,7 +29,7 @@
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container [matColumnDef]="FILTER_FIELDS.first_name">
       <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.first_name}} {{element.last_name}} </mat-cell>
+      <mat-cell class="name_table_cell" *matCellDef="let element"> {{element.first_name}} {{element.last_name}} </mat-cell>
     </ng-container>
 
     <ng-container [matColumnDef]="FILTER_FIELDS.gender">
@@ -45,7 +45,7 @@
 
     <ng-container [matColumnDef]="FILTER_FIELDS.state">
       <mat-header-cell *matHeaderCellDef> State</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
+      <mat-cell class="state_table_cell" *matCellDef="let element"> {{element.state}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">
@@ -59,6 +59,6 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" class="congress_item_row"></mat-row>
   </mat-table>
 </div>
