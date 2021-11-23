@@ -5,7 +5,8 @@ import {
   HttpEvent,
   HttpInterceptor, HttpErrorResponse
 } from '@angular/common/http';
-import {catchError, Observable, of, throwError} from 'rxjs';
+import {catchError, Observable, of, tap, throwError} from 'rxjs';
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -25,6 +26,17 @@ export class XhrInterceptor implements HttpInterceptor {
     const authReq = request.clone({
       headers: request.headers.set('X-API-Key', 'KFxchZGvU4ldps69WEcscHRu9dnb2ueH57pIM3Oa')
     });
-    return next.handle(authReq).pipe(catchError(x => this.handleErrorInterceptor(x)))
+    console.log("---REQUEST---")
+    console.log(authReq)
+    console.log("-------------")
+    return next.handle(authReq).pipe(
+      map((event: HttpEvent<any>) => {
+        console.log("---RESPONSE---")
+        console.log(event)
+        console.log("-------------")
+        return event
+      }),
+      catchError(x => this.handleErrorInterceptor(x))
+    )
   }
 }
